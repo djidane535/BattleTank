@@ -15,3 +15,15 @@ A battle royal game where tanks are fighting on the battlefield in order to be l
 - All tanks outside the safe area (delimited by a circle) will receive damages gradually.
 - The safe area shrinks regularly.
 - The game ends when a single tank remains, or when the player has been destroyed.
+
+## Engine
+This game is developped with Unreal Engine 4.
+
+## Platforms
+Windows 10 32bits/64bits
+
+## Controls
+To be completed.
+
+## Context
+I develop this game on my own as part of an Unreal Engine course I follow (https://www.udemy.com/unrealcourse/learn/v4/overview).
