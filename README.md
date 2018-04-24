@@ -2,9 +2,9 @@
 A battle royal game where tanks are fighting on the battlefield in order to be last remaining one.
 
 ## Rules
- *Tanks can move freely on the battlefield, delimited by mountains.
- *The battlefield offers many safe spots to be exploited strategically.
- *Tanks are splitted into 3 categories: light, medium and heavy.
+*Tanks can move freely on the battlefield, delimited by mountains.
+*The battlefield offers many safe spots to be exploited strategically.
+*Tanks are splitted into 3 categories: light, medium and heavy.
   *Light: fast, low damages, low health.
    *Medium: average.
    *Heavy: slow, high damages, high health. 
