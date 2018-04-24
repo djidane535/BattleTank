@@ -2,6 +2,16 @@
 A battle royal game where tanks are fighting on the battlefield in order to be last remaining one.
 
 ## Rules
+- No problems exist
+- You made it all up
+ 1. You probably missing something big
+     - That isn't really important though
+     - I don't mean to pry
+ 2. You might have just not indented enough times
+     - That seems more likely
+- This helps, right?
+
+
 *Tanks can move freely on the battlefield, delimited by mountains.
 *The battlefield offers many safe spots to be exploited strategically.
 *Tanks are splitted into 3 categories: light, medium and heavy.
