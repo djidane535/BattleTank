@@ -1,6 +1,9 @@
 # BattleTank
 A battle royal game where tanks are fighting on the battlefield in order to be last remaining one.
 
+## Context
+I develop this game on my own as part of an Unreal Engine course I follow (https://www.udemy.com/unrealcourse/learn/v4/overview).
+
 ## Rules
 - Tanks can move freely on the battlefield, delimited by mountains.
 - The battlefield offers many safe spots to be exploited strategically.
@@ -24,6 +27,3 @@ Windows 10 32bits/64bits
 
 ## Controls
 To be completed.
-
-## Context
-I develop this game on my own as part of an Unreal Engine course I follow (https://www.udemy.com/unrealcourse/learn/v4/overview).
