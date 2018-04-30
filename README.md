@@ -23,7 +23,7 @@ I develop this game on my own as part of an Unreal Engine course I follow (https
 This game is developped with Unreal Engine 4.
 
 ## Platforms
-Windows 10 32bits/64bits
+Windows 10 64bits
 
-## Controls
-To be completed.
+## Download
+The game binaries are hosted on itch.io (https://djidane535.itch.io/battle-tank)
