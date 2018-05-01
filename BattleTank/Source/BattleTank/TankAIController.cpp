@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "TankPlayerController.h"
+#include "TankAIController.h"
 #include "Tank.h"
 
 
-void ATankPlayerController::BeginPlay()
+void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 	ATank* tank = GetControlledTank();
@@ -13,7 +13,7 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(
 			LogTemp,
 			Error,
-			TEXT("(ATankPlayerController): No Tank is possessed!")
+			TEXT("(ATankAIController): No Tank is possessed!")
 		)
 	}
 	else
@@ -21,13 +21,17 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(
 			LogTemp,
 			Warning,
-			TEXT("(ATankPlayerController): %s is possessed!"),
+			TEXT("(ATankAIController): %s is possessed!"),
 			*tank->GetName()
 		);
 	}
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
+ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
+
+
+
+
