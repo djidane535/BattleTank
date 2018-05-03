@@ -65,51 +65,88 @@ void ATankPlayerController::AimTowardsCrosshair() const
 bool ATankPlayerController::GetSightRayHitLocation(
 	OUT FVector& out_hitLocation) const
 {
-	//	Get crosshair location
+	//	Get look direction
+	FVector lookDirection;
+	if (!GetLookDirection(OUT lookDirection))
+	{
+		UE_LOG(
+			LogTemp,
+			Error,
+			TEXT("Unable to retrieve look direction")
+		);
+		return false;
+	}
+
+	// Get hit location
+	if (!GetLookVectorHitLocation(
+		lookDirection,
+		OUT out_hitLocation))
+	{
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("Unable to retrieve look hit location")
+		);
+		return false;
+	}
+
+	return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector& out_lookDirection) const
+{
+	//	Get crosshair screen location
+	const FVector2D crossHairScreenLocation = GetCrossHairScreenLocation();
+
+	//	Deproject the screen position of the crosshair to a world direction
+	FVector cameraWorldLocation, crossHairWorldDirection;
+	const bool deprojectIsFound = DeprojectScreenPositionToWorld(
+		crossHairScreenLocation.X,
+		crossHairScreenLocation.Y,
+		OUT cameraWorldLocation,
+		OUT crossHairWorldDirection);
+
+	//	Return
+	if (deprojectIsFound) {	out_lookDirection = crossHairWorldDirection; }
+	return deprojectIsFound;
+}
+
+FVector2D ATankPlayerController::GetCrossHairScreenLocation() const
+{
 	int32 viewportSizeX, viewportSizeY;
 	GetViewportSize(OUT viewportSizeX, OUT viewportSizeY);
-	FVector2D screenLocation = FVector2D(
-		FMath::RoundToZero(CrossHairXLocation * viewportSizeX),
-		FMath::RoundToZero(CrossHairYLocation * viewportSizeY)
-	);
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Screen location: %s"),
-		*screenLocation.ToString()
-	); // TODO
 
+	return FVector2D
+	{
+		FMath::RoundToZero(CrossHairLocationXRatio * viewportSizeX),
+		FMath::RoundToZero(CrossHairLocationYRatio * viewportSizeY)
+	};
+}
 
-	FVector crossHairLocation; // TODO
+bool ATankPlayerController::GetLookVectorHitLocation(
+	FVector lookDirection,
+	FVector& out_hitLocation) const
+{
+	//	Linetrace
+	const FVector startPoint = PlayerCameraManager->GetCameraLocation();
+	const FVector endPoint = startPoint + LineTraceRange * lookDirection;
 
-	//	"De-project" the screen position of the crosshair to a world direction
-	// TODO
-
-	// Get an end location from crossairLocation along the de-projected direction
-	FVector endPointLocation; // TODO
-
-	//	Set object query parameters
-	FCollisionObjectQueryParams objectQueryParams =
-		FCollisionObjectQueryParams(); // TODO
-
-	//	Set collision query parameters
-	FCollisionQueryParams collisionQueryParams =
-		FCollisionQueryParams(); // TODO
-
-	//	Linetrace between crosshair and all objects
-	FHitResult hit;
-	bool hitIsFound = GetWorld()->LineTraceSingleByObjectType
-	(
-		OUT hit,
-		crossHairLocation,
-		endPointLocation,
-		objectQueryParams,
-		collisionQueryParams
+	FHitResult hitResult;
+	const bool isHit = GetWorld()->LineTraceSingleByChannel(
+		hitResult,
+		startPoint,
+		endPoint,
+		ECC_Visibility,
+		FCollisionQueryParams
+		(
+			"",
+			true,
+			GetPawn()
+		)
 	);
 
-	//	Save hit location into out_hitLocation (if hit)
-	out_hitLocation = hit.Location;
-
-	//	Return true if hit, false else
-	return hitIsFound;
+	//	Return
+	if (isHit) { out_hitLocation = hitResult.Location; }
+	else { out_hitLocation = FVector(); }
+	return isHit;
 }
