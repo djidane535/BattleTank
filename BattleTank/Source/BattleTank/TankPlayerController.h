@@ -24,16 +24,18 @@ public:
 	virtual void Tick(float deltaSeconds) override;
 
 private:
-	ATank* GetControlledTank() const;
-
 	//	Moving the turrent and barrel towards the crosshair.
-	void AimTowardsCrosshair() const;	
+	void AimTowardsCrosshair() const;
+
+	ATank* GetControlledTank() const;
 
 	// Return an OUT parameter, true if hit landscape
 	bool GetSightRayHitLocation(OUT FVector& out_hitLocation) const;
 
 	bool GetLookDirection(FVector& out_lookDirection) const;
+
 	FVector2D GetCrossHairScreenLocation() const;
+
 	bool GetLookVectorHitLocation(
 		FVector lookDirection,
 		FVector& out_hitLocation) const;

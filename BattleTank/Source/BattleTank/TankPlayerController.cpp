@@ -37,29 +37,22 @@ void ATankPlayerController::Tick(float deltaSeconds)
 	AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair() const
 {
-	if (!GetControlledTank()) { return; }
+	ATank* tank = GetControlledTank();
+	if (!tank) { return; }
 
 	// Check if linetrace hit something
 	FVector hitLocation; // Out parameter
 	if (!GetSightRayHitLocation(hitLocation)) { return; }
 
-	// Linetrace hit something
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("Hit location: %s"),
-		*hitLocation.ToString()
-	);
-
 	// Move turret and barrel towards this location.
-	// TODO
+	tank->AimAt(hitLocation);
+}
+
+ATank* ATankPlayerController::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn());
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(
@@ -80,16 +73,7 @@ bool ATankPlayerController::GetSightRayHitLocation(
 	// Get hit location
 	if (!GetLookVectorHitLocation(
 		lookDirection,
-		OUT out_hitLocation))
-	{
-		UE_LOG(
-			LogTemp,
-			Warning,
-			TEXT("Unable to retrieve look hit location")
-		);
-		return false;
-	}
-
+		OUT out_hitLocation)) { return false; }
 	return true;
 }
 
