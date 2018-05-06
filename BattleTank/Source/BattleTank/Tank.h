@@ -14,17 +14,13 @@ class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()
 
-private:
+public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-public:
-	virtual void AimAt(FVector location) const;
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrelReference(UStaticMeshComponent* barrel);
 
-protected:
-	UTankAimingComponent* TankAimingComponent = nullptr;
-
-private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -32,4 +28,12 @@ private:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void AimAt(FVector location) const;
+
+protected:
+	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000.0; // 1000 m/s
 };

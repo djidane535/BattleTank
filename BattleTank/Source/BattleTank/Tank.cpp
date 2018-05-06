@@ -15,9 +15,9 @@ ATank::ATank()
 	);
 }
 
-void ATank::AimAt(FVector location) const
+void ATank::SetBarrelReference(UStaticMeshComponent* barrel)
 {
-	TankAimingComponent->AimAt(location);
+	TankAimingComponent->SetBarrelReference(barrel);
 }
 
 // Called when the game starts or when spawned
@@ -36,4 +36,9 @@ void ATank::Tick(float DeltaTime)
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void ATank::AimAt(FVector location) const
+{
+	TankAimingComponent->AimAt(location, LaunchSpeed);
 }
