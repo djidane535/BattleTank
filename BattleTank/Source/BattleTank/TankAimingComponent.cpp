@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
+#include "TankBarrel.h"
 #include "Runtime/Engine/Classes/GameFramework/Pawn.h"
-#include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
@@ -16,7 +16,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* barrel)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrel)
 {
 	Barrel = barrel;
 }
@@ -59,15 +59,23 @@ void UTankAimingComponent::AimAt(FVector location, float launchSpeed) const
 		false
 	);
 
-	if (!isFeasible) { return; }
+	if (isFeasible)
+	{
+		// Get aim direction
+		FVector aimDirection = launchVelocity.GetSafeNormal();
 
-	// Get aim direction
-	FVector aimDirection = launchVelocity.GetSafeNormal();
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("%s is aiming at %s"),
-		*GetOwner()->GetName(),
-		*aimDirection.ToString()
-	);
+		// Move barrel and turret towards aim direction
+		MoveBarrelTowards(aimDirection);
+	}
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection) const
+{
+	// Compute angle distance between aimDirection and barrel rotation
+	// (shortest angle, on XZ plane)
+	FRotator barrelRotator = Barrel->GetForwardVector().Rotation();
+	FRotator aimRotator = aimDirection.Rotation();
+	FRotator diffRotator = aimRotator - barrelRotator;
+
+	Barrel->Elevate(5);
 }

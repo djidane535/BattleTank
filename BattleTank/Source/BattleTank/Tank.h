@@ -7,6 +7,7 @@
 #include "Tank.generated.h"
 
 class UTankAimingComponent;
+class UTankBarrel;
 
 
 UCLASS()
@@ -19,7 +20,7 @@ public:
 	ATank();
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UStaticMeshComponent* barrel);
+	void SetBarrelReference(UTankBarrel* barrel);
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
