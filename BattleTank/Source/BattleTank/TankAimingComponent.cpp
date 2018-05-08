@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Runtime/Engine/Classes/GameFramework/Pawn.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
@@ -19,6 +20,11 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrel)
 {
 	Barrel = barrel;
+}
+
+void UTankAimingComponent::SetTurretReference(UTankTurret* turret)
+{
+	Turret = turret;
 }
 
 // Called when the game starts
@@ -73,9 +79,18 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
 	// Compute angle distance between aimDirection and barrel rotation
 	// (shortest angle, on XZ plane)
-	FRotator barrelRotator = Barrel->GetForwardVector().Rotation();
-	FRotator aimRotator = aimDirection.Rotation();
-	FRotator diffRotator = aimRotator - barrelRotator;
+	const FRotator barrelRotator = Barrel->GetForwardVector().Rotation();
+	const FRotator aimRotator = aimDirection.Rotation();
+	const FRotator diffRotator = aimRotator - barrelRotator;
 
+	// Apply results to barrel and turret
 	Barrel->Elevate(diffRotator.Pitch);
+
+	float deltaYaw = 0;
+	if (FMath::Abs(diffRotator.Yaw) < FMath::Abs(360.0 - diffRotator.Yaw))
+	{
+		deltaYaw = diffRotator.Yaw;
+	}
+	else { deltaYaw = 360.0 - diffRotator.Yaw; }
+	Turret->Turn(deltaYaw);
 }
