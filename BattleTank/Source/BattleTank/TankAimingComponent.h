@@ -26,10 +26,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAt(FVector location, float launchSpeed) const;
+	void AimAt(FVector location, float launchSpeed);
 
 private:		
 	UTankBarrel* Barrel = nullptr;
 
-	void MoveBarrelTowards(FVector aimDirection) const;
+	void MoveBarrelTowards(FVector aimDirection);
 };

@@ -4,15 +4,19 @@
 #include "Runtime/Engine/Classes/Engine/World.h"
 
 
-void UTankBarrel::Elevate(float relativeSpeed) const
+void UTankBarrel::Elevate(float relativeSpeed)
 {
-	// Debug
-	auto time = GetWorld()->GetTimeSeconds();
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("%f Elevate(%f)"),
-		time,
-		relativeSpeed
+	relativeSpeed = FMath::Clamp<float>(relativeSpeed, -1, +1);
+
+	const float deltaElevation = relativeSpeed
+		* MaxDegressPerSecond
+		* GetWorld()->DeltaTimeSeconds;
+
+	const auto rawNewElevation = FMath::Clamp<float>(
+		RelativeRotation.Pitch + deltaElevation,
+		MinElevationDegrees,
+		MaxElevationDegrees
 	);
+
+	SetRelativeRotation(FRotator(rawNewElevation, 0, 0));
 }

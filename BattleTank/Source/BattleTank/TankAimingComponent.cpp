@@ -33,7 +33,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-void UTankAimingComponent::AimAt(FVector location, float launchSpeed) const
+void UTankAimingComponent::AimAt(FVector location, float launchSpeed)
 {
 	if (!Barrel) { return; }
 
@@ -69,7 +69,7 @@ void UTankAimingComponent::AimAt(FVector location, float launchSpeed) const
 	}
 }
 
-void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection) const
+void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
 	// Compute angle distance between aimDirection and barrel rotation
 	// (shortest angle, on XZ plane)
@@ -77,5 +77,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection) const
 	FRotator aimRotator = aimDirection.Rotation();
 	FRotator diffRotator = aimRotator - barrelRotator;
 
-	Barrel->Elevate(5); // TODO
+	Barrel->Elevate(diffRotator.Pitch);
 }
