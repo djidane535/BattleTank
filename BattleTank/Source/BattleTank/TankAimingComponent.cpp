@@ -12,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -31,12 +31,6 @@ void UTankAimingComponent::SetTurretReference(UTankTurret* turret)
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
 void UTankAimingComponent::AimAt(FVector location, float launchSpeed)
@@ -83,14 +77,19 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 	const FRotator aimRotator = aimDirection.Rotation();
 	const FRotator diffRotator = aimRotator - barrelRotator;
 
-	// Apply results to barrel and turret
+	// Apply results to barrel
 	Barrel->Elevate(diffRotator.Pitch);
 
+	// Apply results to turret
 	float deltaYaw = 0;
-	if (FMath::Abs(diffRotator.Yaw) < FMath::Abs(360.0 - diffRotator.Yaw))
+
+	const float complementaryYaw =
+		diffRotator.Yaw > 0 ? diffRotator.Yaw - 360 : diffRotator.Yaw + 360;
+	if (FMath::Abs(diffRotator.Yaw) < FMath::Abs(complementaryYaw))
 	{
 		deltaYaw = diffRotator.Yaw;
 	}
-	else { deltaYaw = 360.0 - diffRotator.Yaw; }
+	else { deltaYaw = complementaryYaw; }
+
 	Turret->Turn(deltaYaw);
 }
