@@ -34,6 +34,9 @@ public:
 
 	virtual void AimAt(FVector location);
 
+	UFUNCTION(BlueprintCallable, Category = Gameplay)
+	virtual void Fire() const;
+
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 

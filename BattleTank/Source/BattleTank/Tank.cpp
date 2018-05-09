@@ -41,3 +41,14 @@ void ATank::AimAt(FVector location)
 {
 	TankAimingComponent->AimAt(location, LaunchSpeed);
 }
+
+void ATank::Fire() const
+{
+	// TODO
+	UE_LOG(
+		LogTemp,
+		Warning,
+		TEXT("%s is firing!"),
+		*GetName()
+	);
+}

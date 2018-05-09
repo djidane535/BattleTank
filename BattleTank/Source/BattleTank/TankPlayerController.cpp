@@ -20,15 +20,6 @@ void ATankPlayerController::BeginPlay()
 			TEXT("(ATankPlayerController): No Tank is possessed!")
 		)
 	}
-	else
-	{
-		UE_LOG(
-			LogTemp,
-			Warning,
-			TEXT("(ATankPlayerController): %s is possessed!"),
-			*tank->GetName()
-		);
-	}
 }
 
 void ATankPlayerController::Tick(float deltaSeconds)
