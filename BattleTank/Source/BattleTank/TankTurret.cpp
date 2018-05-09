@@ -9,7 +9,7 @@ void UTankTurret::Turn(float relativeSpeed)
 	relativeSpeed = FMath::Clamp<float>(relativeSpeed, -1, +1);
 
 	const float deltaYaw = relativeSpeed
-		* MaxDegressPerSecond
+		* MaxDegreesPerSecond
 		* GetWorld()->DeltaTimeSeconds;
 
 	const float rawNewYaw = RelativeRotation.Yaw + deltaYaw;

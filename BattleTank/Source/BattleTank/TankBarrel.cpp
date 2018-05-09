@@ -9,7 +9,7 @@ void UTankBarrel::Elevate(float relativeSpeed)
 	relativeSpeed = FMath::Clamp<float>(relativeSpeed, -1, +1);
 
 	const float deltaPitch = relativeSpeed
-		* MaxDegressPerSecond
+		* MaxDegreesPerSecond
 		* GetWorld()->DeltaTimeSeconds;
 
 	const auto rawNewPitch = FMath::Clamp<float>(
