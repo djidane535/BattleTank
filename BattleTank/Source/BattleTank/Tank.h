@@ -9,6 +9,7 @@
 class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 
 UCLASS()
@@ -35,11 +36,16 @@ public:
 	virtual void AimAt(FVector location);
 
 	UFUNCTION(BlueprintCallable, Category = Gameplay)
-	virtual void Fire() const;
+	virtual void Fire();
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 4000.0; // 400 m/s
+
+	UTankBarrel* Barrel; // Used to spawn projectile
 };
