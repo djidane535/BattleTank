@@ -5,7 +5,6 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
-#include "Runtime/Engine/Classes/Engine/StaticMeshSocket.h"
 
 
 // Sets default values
@@ -60,9 +59,11 @@ void ATank::Fire()
 	if (!Barrel) { return; }
 
 	// Spawn a projectile
-	GetWorld()->SpawnActor<AProjectile>(
+	AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		Barrel->GetSocketLocation("Projectile"),
 		Barrel->GetSocketRotation("Projectile")
 	);
+
+	projectile->LaunchProjectile(LaunchSpeed);
 }
