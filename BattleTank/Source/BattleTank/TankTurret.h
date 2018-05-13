@@ -7,9 +7,9 @@
 #include "TankTurret.generated.h"
 
 /**
- * 
+ * TankTurret is used to set maximum degrees per second speed, and turn the turret.
  */
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 {
 	GENERATED_BODY()
