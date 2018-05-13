@@ -4,7 +4,7 @@ A battle royal game where tanks are fighting on the battlefield in order to be l
 ## Context
 I develop this game on my own as part of an Unreal Engine course I follow (https://www.udemy.com/unrealcourse/learn/v4/overview).
 
-## Rules
+## Rules (for final release)
 - Tanks can move freely on the battlefield, delimited by mountains.
 - The battlefield offers many safe spots to be exploited strategically.
 - Tanks are splitted into 3 categories: light, medium and heavy.
