@@ -42,7 +42,12 @@ private:
 		FVector& out_hitLocation) const;
 
 	// TODO: should be same has defined for cross hair in PlayerUI
-	const float CrossHairLocationXRatio = 0.5;
-	const float CrossHairLocationYRatio = 1.0 / 3.0;
-	const float LineTraceRange = 1000000.0;
+	UPROPERTY(EditDefaultsOnly)
+	float CrossHairLocationXRatio = 0.5;
+
+	UPROPERTY(EditDefaultsOnly)
+	float CrossHairLocationYRatio = 1.0 / 3.0;
+
+	UPROPERTY(EditDefaultsOnly)
+	float LineTraceRange = 1000000.0; // 10,000 m
 };
