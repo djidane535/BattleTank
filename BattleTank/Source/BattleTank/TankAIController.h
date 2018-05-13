@@ -23,9 +23,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	virtual void AimTowardsPlayer() const;
+	virtual bool AimTowardsPlayer() const;
 
-	ATank* GetControlledTank() const;
-
-	ATank* GetPlayerTank() const;
+	ATank* Tank;
+	ATank* PlayerTank;
 };

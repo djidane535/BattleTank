@@ -5,6 +5,7 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
+#include "Runtime/Online/BuildPatchServices/Private/Core/Platform.h"
 
 
 // Sets default values
@@ -48,22 +49,21 @@ void ATank::AimAt(FVector location)
 
 void ATank::Fire()
 {
-	// TODO
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("%s is firing!"),
-		*GetName()
-	);
-
 	if (!Barrel) { return; }
 
-	// Spawn a projectile
-	AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(
-		ProjectileBlueprint,
-		Barrel->GetSocketLocation("Projectile"),
-		Barrel->GetSocketRotation("Projectile")
-	);
+	const bool isReloaded =
+		(FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	projectile->LaunchProjectile(LaunchSpeed);
+	if (isReloaded)
+	{
+		// Spawn a projectile
+		AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation("Projectile"),
+			Barrel->GetSocketRotation("Projectile")
+			);
+
+		projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }

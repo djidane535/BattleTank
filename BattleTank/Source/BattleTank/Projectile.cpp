@@ -44,5 +44,3 @@ void AProjectile::LaunchProjectile(float speed)
 	MovementComponent->SetVelocityInLocalSpace(speed * FVector::ForwardVector);
 	MovementComponent->Activate(true);
 }
-
-

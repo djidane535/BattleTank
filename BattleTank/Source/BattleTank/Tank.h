@@ -47,5 +47,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LaunchSpeed = 4000.0; // 400 m/s
 
+	UPROPERTY(EditAnywhere, Category = Setup)
+	double ReloadTimeInSeconds = 3.0;
+
 	UTankBarrel* Barrel; // Used to spawn projectile
+
+	double LastFireTime = 0;
 };
