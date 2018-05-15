@@ -6,14 +6,6 @@
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	UE_LOG(
-		LogTemp,
-		Warning,
-		TEXT("%s: throttle = %f"),
-		*GetName(),
-		throttle
-	);
-
 	const FVector forceApplied =
 		throttle * TrackMaxDrivingForce * GetForwardVector();
 	const FVector forceLocation =

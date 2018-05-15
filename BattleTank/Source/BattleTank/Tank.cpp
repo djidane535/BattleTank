@@ -2,6 +2,7 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -16,6 +17,10 @@ ATank::ATank()
 
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(
 		FName("AimingComponent")
+	);
+
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(
+		FName("MovementComponent")
 	);
 }
 
