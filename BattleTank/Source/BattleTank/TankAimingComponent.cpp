@@ -17,13 +17,11 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrel)
+void UTankAimingComponent::Initialize(UTankBarrel* barrel, UTankTurret* turret)
 {
-	Barrel = barrel;
-}
+	if (!barrel || !turret) { return; }
 
-void UTankAimingComponent::SetTurretReference(UTankTurret* turret)
-{
+	Barrel = barrel;
 	Turret = turret;
 }
 
@@ -71,6 +69,8 @@ void UTankAimingComponent::AimAt(FVector location, float launchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
+	if (!Barrel || !Turret) { return; }
+
 	// Compute angle distance between aimDirection and barrel rotation
 	// (shortest angle, on XZ plane)
 	const FRotator barrelRotator = Barrel->GetForwardVector().Rotation();

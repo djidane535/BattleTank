@@ -19,8 +19,8 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrelReference(UTankBarrel* barrel);
-	void SetTurretReference(UTankTurret* turret);
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialize(UTankBarrel* barrel, UTankTurret* turret);
 	
 	// Called when the game starts
 	virtual void BeginPlay() override;
