@@ -39,13 +39,10 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float deltaSeconds)
 {
 	Super::Tick(deltaSeconds);
-	if (AimTowardsPlayer()) { Tank->Fire(); }
-}
 
-bool ATankAIController::AimTowardsPlayer() const
-{
-	if (!Tank || !PlayerTank) { return false; }
+	if (!Tank || !PlayerTank) { return; }
 
+	MoveToActor(PlayerTank, AcceptanceRadius);
 	Tank->AimAt(PlayerTank->GetActorLocation());
-	return true;
+	//Tank->Fire();
 }

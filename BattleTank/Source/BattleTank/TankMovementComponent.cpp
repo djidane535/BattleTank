@@ -4,7 +4,9 @@
 #include "TankTrack.h"
 
 
-void UTankMovementComponent::Initialize(UTankTrack* leftTrack, UTankTrack* rightTrack)
+void UTankMovementComponent::Initialize(
+	UTankTrack* leftTrack,
+	UTankTrack* rightTrack)
 {
 	if (!leftTrack || !rightTrack) { return; }
 
@@ -28,4 +30,17 @@ void UTankMovementComponent::IntendTurnRight(float magnitude)
 	magnitude = FMath::Clamp<float>(magnitude, -1, 1);
 	LeftTrack->SetThrottle(+MaxSpeed * magnitude);
 	RightTrack->SetThrottle(-MaxSpeed * magnitude);
+}
+
+void UTankMovementComponent::RequestDirectMove(
+	const FVector & MoveVelocity,
+	bool bForceMaxSpeed)
+{
+	const FVector tankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	const FVector aiForwardIntention = MoveVelocity.GetSafeNormal();
+	const float forwardThrow = FVector::DotProduct(tankForward, aiForwardIntention);
+	const float turnRightThrow = FVector::CrossProduct(tankForward, aiForwardIntention).Z;
+
+	IntendMoveForward(forwardThrow*.5);
+	IntendTurnRight(turnRightThrow);
 }

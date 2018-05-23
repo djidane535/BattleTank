@@ -23,8 +23,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	virtual bool AimTowardsPlayer() const;
-
 	ATank* Tank;
 	ATank* PlayerTank;
+
+	float AcceptanceRadius = 50.0;
 };
