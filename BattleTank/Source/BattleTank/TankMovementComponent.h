@@ -26,12 +26,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void IntendTurnRight(float magnitude);
-
-	void RequestDirectMove(
-		const FVector & MoveVelocity,
-		bool bForceMaxSpeed
-	) override;
-
+	
 private:
 	UTankTrack* LeftTrack = nullptr;
 	UTankTrack* RightTrack = nullptr;
@@ -41,4 +36,10 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	float GetMaxSpeed() const { return MaxSpeed; }
+
+	void RequestDirectMove(
+		const FVector & MoveVelocity,
+		bool bForceMaxSpeed
+	) override;
+
 };

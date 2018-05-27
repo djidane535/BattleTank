@@ -24,11 +24,13 @@ public:
 
 	virtual void Tick(float deltaSeconds) override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	ATank* GetControlledTank() const;
+
 private:
 	//	Moving the turrent and barrel towards the crosshair.
 	void AimTowardsCrosshair() const;
-
-	ATank* GetControlledTank() const;
 
 	// Return an OUT parameter, true if hit landscape
 	bool GetSightRayHitLocation(OUT FVector& out_hitLocation) const;
