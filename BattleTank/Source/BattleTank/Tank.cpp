@@ -16,30 +16,9 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();	
-}
-
-void ATank::Initialize(
-	UTankAimingComponent* tankAimingComponent,
-	UTankBarrel* barrel)
-{
-	if (!tankAimingComponent || !barrel) { return; }
-
-	TankAimingComponent = tankAimingComponent;
-	Barrel = barrel;
-}
-
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
 void ATank::AimAt(FVector location)
 {
+	if (!TankAimingComponent) { return; }
 	TankAimingComponent->AimAt(location, LaunchSpeed);
 }
 

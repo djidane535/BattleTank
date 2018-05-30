@@ -25,12 +25,6 @@ void UTankAimingComponent::Initialize(UTankBarrel* barrel, UTankTurret* turret)
 	Turret = turret;
 }
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
 void UTankAimingComponent::AimAt(FVector location, float launchSpeed)
 {
 	if (!Barrel) { return; }
